@@ -1,4 +1,4 @@
-package com.mayi.jiagousi.thread;
+package com.mayi.jiagousi.ch01.thread;
 
 import java.util.ArrayList;
 import java.util.List;

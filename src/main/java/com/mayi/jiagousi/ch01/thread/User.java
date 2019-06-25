@@ -1,4 +1,4 @@
-package com.mayi.jiagousi.thread;
+package com.mayi.jiagousi.ch01.thread;
 
 public class User {
      private String userId;
