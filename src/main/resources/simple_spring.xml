@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans>
+    <bean id="obj1" class="com.mayi.jiagousi.ch06.AnObject">
+        <property name="id" value="1"></property>
+        <property name="name" value="cyz"></property>
+    </bean>
+    <bean id="obj2" class="com.mayi.jiagousi.ch06.AnObject">
+        <property name="id" value="2"></property>
+        <property name="name" value="zyt"></property>
+    </bean>
+</beans>

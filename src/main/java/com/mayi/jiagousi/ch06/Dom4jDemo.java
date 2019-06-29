@@ -13,7 +13,7 @@ public class Dom4jDemo {
 
     public static void main(String[] args) throws DocumentException {
         SAXReader reader = new SAXReader();
-        Document document = reader.read("src\\main\\resources\\students.xml");
+        Document document = reader.read(Dom4jDemo.class.getClassLoader().getResourceAsStream("students.xml"));
         Element root = document.getRootElement();
         getNodes(root);
     }
