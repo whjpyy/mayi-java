@@ -11,7 +11,7 @@ public class HelloController {
 
     private static AtomicInteger count = new AtomicInteger(0);
 
-    @RequestMapping
+    @RequestMapping("/hello")
     @ResponseBody
     public String hello(){
         System.out.println("hello, " + count.incrementAndGet());
