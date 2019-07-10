@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    跨域测试1
+</body>
+<script src="https://cdn.staticfile.org/jquery/2.0.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            type: 'get',
+            // url: 'http://127.0.0.1:8080/name?name=chen',
+            url: 'http://a.a.com:8080/name?name=chen',
+            // dataType: 'json',
+            success: function(data){
+                console.log(data);
+                alert('name=' + data);
+            },
+            error: function () {
+                alert('fail')
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: 'http://a.a.com:8080/jsonptest?name=chen',
+            dataType: 'jsonp',
+            jsonp: 'callback',
+            success: function(data){
+                console.log(data);
+                alert('name=' + data.name);
+            },
+            error: function () {
+                alert('fail')
+            }
+        });
+    });
+</script>
+</html>

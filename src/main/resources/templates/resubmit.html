@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>重复提交</h1>
+    <form action="/submitAgain" method="post">
+        <input type="hidden" name="token" th:value="${token}" />
+        用户名：<input type="text" name="name"/><input type="submit" value="提交"/>
+    </form>
+</body>
+<script>
+</script>
+</html>
