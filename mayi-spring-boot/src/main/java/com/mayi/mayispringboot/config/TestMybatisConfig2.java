@@ -1,23 +1,23 @@
 package com.mayi.mayispringboot.config;
 
+import com.atomikos.jdbc.AtomikosDataSourceBean;
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
-//@Configuration
+@Configuration
 @MapperScan(basePackages = "com.mayi.mayispringboot.mapper.test02", sqlSessionFactoryRef = "test2SqlSessionFactory")
-public class DataSource2Config {
+public class TestMybatisConfig2 {
 
     /**
      * 将datasource注入到容器中
@@ -26,9 +26,18 @@ public class DataSource2Config {
      * @return
      */
     @Bean("test2DataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.test2")
-    public DataSource getDataSource(){
-        return DataSourceBuilder.create().build();
+    public DataSource getDataSource(DBConfig2 config) throws SQLException {
+        MysqlXADataSource mysqlXADataSource = new MysqlXADataSource();
+        mysqlXADataSource.setURL(config.getJdbcUrl());
+        mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
+        mysqlXADataSource.setPassword(config.getPassword());
+        mysqlXADataSource.setUser(config.getUsername());
+        mysqlXADataSource.setPinGlobalTxToPhysicalConnection(true);
+
+        AtomikosDataSourceBean sourceBean = new AtomikosDataSourceBean();
+        sourceBean.setXaDataSource(mysqlXADataSource);
+        sourceBean.setUniqueResourceName("test2DataSource");
+        return sourceBean;
     }
 
     /**
@@ -46,12 +55,6 @@ public class DataSource2Config {
                 new PathMatchingResourcePatternResolver().getResources("classpath*:mappers/test02/*.xml")
         );
         return sqlSessionFactoryBean.getObject();
-    }
-
-    @Bean("test2TranscationManager")
-    @Primary
-    public DataSourceTransactionManager transactionManager(@Qualifier("test2DataSource") DataSource dataSource){
-        return new DataSourceTransactionManager(dataSource);
     }
 
     /**
