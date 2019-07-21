@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service
+@Service("userService3")
 public class UserService {
     @Autowired
     private UserDao userDao;
